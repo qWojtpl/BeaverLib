@@ -1,5 +1,7 @@
 package pl.beaverlib.util;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import pl.beaverlib.BeaverLib;
@@ -80,6 +82,14 @@ public abstract class PlayerUtil {
             return uuid;
         }
         return plugin.getServer().getOfflinePlayer(UUID.fromString(uuid)).getName();
+    }
+
+    public static void sendActionBarMessage(Player player, String message) {
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+    }
+
+    public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+        player.sendTitle(title, subtitle, fadeIn, stay, fadeOut);
     }
 
 }

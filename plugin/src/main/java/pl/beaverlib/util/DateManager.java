@@ -9,20 +9,40 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.Calendar.*;
+
 public abstract class DateManager {
 
     private final static BeaverLib plugin = BeaverLib.getInstance();
+    private final String[] dayNames = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    private final String[] monthNames = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-    public static String getDate(String separator) {
-        String month = getMonth() + "";
-        if(getMonth() < 10) {
-            month = "0" + month;
-        }
-        return getDay() + separator + month + separator + getYear();
+    public int getSecond() {
+        return getCalendar().get(SECOND);
+    }
+
+    public int getMinute() {
+        return getCalendar().get(MINUTE);
+    }
+
+    public int getHour() {
+        return getCalendar().get(HOUR_OF_DAY);
     }
 
     public static int getDay() {
         return getCalendar().get(Calendar.DAY_OF_MONTH);
+    }
+
+    public int getDayOfWeek() {
+        return getCalendar().get(DAY_OF_WEEK);
+    }
+
+    public String getDayName() {
+        return dayNames[getDayOfWeek() - 1];
+    }
+
+    public int getDaysOfMonth() {
+        return getCalendar().getActualMaximum(DAY_OF_MONTH);
     }
 
     public static int getMonth() {
@@ -35,6 +55,24 @@ public abstract class DateManager {
 
     public static Calendar getCalendar() {
         return Calendar.getInstance();
+    }
+
+    public String getFormattedDate(String format) {
+        format = format.replace("%Y", String.valueOf(getYear()));
+        format = format.replace("%M", String.valueOf(getMonth()));
+        format = format.replace("%D", String.valueOf(getDay()));
+        format = format.replace("%h", String.valueOf(getHour()));
+        format = format.replace("%m", String.valueOf(getMinute()));
+        format = format.replace("%s", String.valueOf(getSecond()));
+        return format;
+    }
+
+    public static String getDate(String separator) {
+        String month = getMonth() + "";
+        if(getMonth() < 10) {
+            month = "0" + month;
+        }
+        return getDay() + separator + month + separator + getYear();
     }
 
     public static long calculateDays(String startDate, String endDate, String separator) {
