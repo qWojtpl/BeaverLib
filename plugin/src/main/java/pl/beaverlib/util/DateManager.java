@@ -14,18 +14,18 @@ import static java.util.Calendar.*;
 public abstract class DateManager {
 
     private final static BeaverLib plugin = BeaverLib.getInstance();
-    private final String[] dayNames = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-    private final String[] monthNames = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private final static String[] dayNames = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    private final static String[] monthNames = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-    public int getSecond() {
+    public static int getSecond() {
         return getCalendar().get(SECOND);
     }
 
-    public int getMinute() {
+    public static int getMinute() {
         return getCalendar().get(MINUTE);
     }
 
-    public int getHour() {
+    public static int getHour() {
         return getCalendar().get(HOUR_OF_DAY);
     }
 
@@ -33,20 +33,24 @@ public abstract class DateManager {
         return getCalendar().get(Calendar.DAY_OF_MONTH);
     }
 
-    public int getDayOfWeek() {
+    public static int getDayOfWeek() {
         return getCalendar().get(DAY_OF_WEEK);
     }
 
-    public String getDayName() {
+    public static String getDayName() {
         return dayNames[getDayOfWeek() - 1];
     }
 
-    public int getDaysOfMonth() {
+    public static int getDaysOfMonth() {
         return getCalendar().getActualMaximum(DAY_OF_MONTH);
     }
 
     public static int getMonth() {
         return getCalendar().get(Calendar.MONTH)+1;
+    }
+
+    public static String getMonthName() {
+        return monthNames[getMonth() - 1];
     }
 
     public static int getYear() {
@@ -57,7 +61,7 @@ public abstract class DateManager {
         return Calendar.getInstance();
     }
 
-    public String getFormattedDate(String format) {
+    public static String getFormattedDate(String format) {
         format = format.replace("%Y", String.valueOf(getYear()));
         format = format.replace("%M", String.valueOf(getMonth()));
         format = format.replace("%D", String.valueOf(getDay()));
