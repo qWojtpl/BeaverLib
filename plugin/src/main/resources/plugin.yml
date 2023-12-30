@@ -1,0 +1,6 @@
+name: BeaverLib
+version: '${project.version}'
+main: pl.beaverlib.BeaverLib
+api-version: 1.19
+authors: [Assasin98980]
+description: Plugin library
