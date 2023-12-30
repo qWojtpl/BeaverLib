@@ -15,12 +15,23 @@ public class GUIEvents implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        PluginGUI gui = guiHandler.getGUIByInventory(event.getInventory());
+        PluginGUI gui = guiHandler.getGUIByInventory(event.getClickedInventory());
         if(gui == null) {
             return;
         }
         gui.onClick(event.getSlot());
         gui.onClick(event.getSlot(), event.isRightClick());
+        if(gui.isGuiProtected()) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onGlobalClick(InventoryClickEvent event) {
+        PluginGUI gui = guiHandler.getGUIByInventory(event.getInventory());
+        if(gui == null) {
+            return;
+        }
         if(gui.isGuiProtected()) {
             event.setCancelled(true);
         }
